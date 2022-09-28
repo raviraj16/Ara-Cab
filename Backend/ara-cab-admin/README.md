@@ -1,0 +1,1 @@
+A web application that deals with the admin related services
