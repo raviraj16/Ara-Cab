@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS locations (
   latitude REAL,
   longitude REAL,
   is_discontinued BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
 
@@ -25,6 +27,8 @@ CREATE TABLE IF NOT EXISTS customers (
   email VARCHAR(50) NOT NULL,
   customer_type customer_types NOT NULL DEFAULT 'guest',
   is_blocked BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE (phone)
 );
@@ -41,6 +45,8 @@ CREATE TABLE IF NOT EXISTS drivers (
   email VARCHAR(50) NOT NULL,
   address VARCHAR(150),
   is_discontinued BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE (phone)
 );
@@ -54,6 +60,8 @@ CREATE TABLE IF NOT EXISTS vehicles (
   owner_id INTEGER,
   is_commercial BOOLEAN DEFAULT false,
   is_discontinued BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE (licence_plate),
   CONSTRAINT fk_owner_id FOREIGN KEY (owner_id) REFERENCES drivers (id)
@@ -69,6 +77,8 @@ CREATE TABLE IF NOT EXISTS ratecharts (
   round_trip_charge NUMERIC(10,2),
   vehicle_id INTEGER NOT NULL,
   is_discontinued BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   CONSTRAINT fk_pick_up_location_id FOREIGN KEY (pick_up_location_id) REFERENCES locations (id),
   CONSTRAINT fk_drop_location_id FOREIGN KEY (drop_location_id) REFERENCES locations (id),
