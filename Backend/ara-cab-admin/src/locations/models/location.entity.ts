@@ -1,25 +1,22 @@
+import { AppBaseEntity } from "src/shared/models/app-base.entity";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('locations')
-export class LocationEntity {
+export class LocationEntity extends AppBaseEntity {
+
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
-    place_name: string;
-
-    @Column()
-    latitude: number;
-
-    @Column()
-    longitude: number;
-
-    @Column()
+    
+    @Column({ select: false, insert: false, default: false })
     is_discontinued: boolean;
 
-    @Column()
-    created_at: Date;
+    @Column({ length: 50, nullable: false, unique: true })
+    place_name: string;
 
-    @Column()
-    updated_at: Date;
+    @Column({ nullable: true, type:'real' })
+    latitude: number;
+
+    @Column({ nullable: true, type:'real' })
+    longitude: number;
+
 }

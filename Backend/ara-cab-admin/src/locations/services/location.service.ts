@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { from, Observable } from 'rxjs';
 import { Repository, UpdateResult } from 'typeorm';
 import { LocationEntity } from '../models/location.entity';
-import { Location } from '../models/location.interface';
+import { CreateLocationDto, UpdateLocationDto } from '../models/location.dto';
 
 @Injectable()
 export class LocationService {
@@ -12,17 +12,23 @@ export class LocationService {
         private readonly locationRepository: Repository<LocationEntity>
     ) { }
 
-    createLocation(location: Location): Observable<Location> {
+    createLocation(location: CreateLocationDto): Observable<CreateLocationDto> {
         return from(this.locationRepository.save(location));
     }
 
-    findAllLocations(): Observable<Location[]> {
-        return from(this.locationRepository.find());
+    findAllLocations(): Observable<CreateLocationDto[]> {
+        return from(this.locationRepository.find({ where: [{ is_discontinued: false }] }));
     }
 
-    updateLocation(id: number, location: Location): Observable<UpdateResult>{
-        delete location.id;
-        delete location.created_at;
+    findALocation(id: number): Observable<CreateLocationDto> {
+        return from(this.locationRepository.findOneBy({ id, is_discontinued: false }));
+    }
+
+    updateLocation(id: number, location: UpdateLocationDto): Observable<UpdateResult> {
         return from(this.locationRepository.update(id, location));
+    }
+
+    softDeleteLocation(id: number): Observable<UpdateResult> {
+        return from(this.locationRepository.update(id, { is_discontinued: true }));
     }
 }
