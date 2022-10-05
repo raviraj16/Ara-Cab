@@ -3,5 +3,5 @@ export enum PostgresErrorCodes{
     UNDEFINED_COLUMN = '42703',
     NOT_NULL_VIOLATION = '23502',
     UNIQUE_VIOLATION = '23505',
-
+    INVALID_DATETIME_FORMAT = '22007',
 }

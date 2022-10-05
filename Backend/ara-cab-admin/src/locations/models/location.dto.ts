@@ -1,12 +1,11 @@
 import { PartialType } from "@nestjs/mapped-types";
-import { IsNotEmpty, IsOptional, IsLatitude, IsLongitude, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsLatitude, IsLongitude, IsString, MaxLength } from "class-validator";
 import { BaseDto } from "src/shared/models/base.dto"
 
 export class CreateLocationDto extends BaseDto {
-    is_discontinued?: boolean;
-
     @IsNotEmpty()
     @IsString()
+    @MaxLength(50)
     place_name: string;
 
     @IsOptional()

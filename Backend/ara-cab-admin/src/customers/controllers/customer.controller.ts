@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { map, Observable } from 'rxjs';
-import { UpdateResult } from 'typeorm';
+import { map, Observable, of } from 'rxjs';
 import { CreateCustomerDto, UpdateCustomerDto } from '../models/customer.dto';
 import { CustomerService } from '../services/customer.service';
 
@@ -19,6 +18,11 @@ export class CustomerController {
         return this.customerService.findAllCustomers();
     }
 
+    @Get('blocked')
+    findAllBlocked(): Observable<CreateCustomerDto[]> {
+        return this.customerService.findAllBlockedCustomer();
+    }
+
     @Get(':id')
     findOne(@Param('id') id: number): Observable<CreateCustomerDto> {
         return this.customerService.findACustomer(id);
@@ -29,6 +33,9 @@ export class CustomerController {
         @Param('id') id: number,
         @Body() customer: UpdateCustomerDto
     ): Observable<boolean> {
+        if (Object.keys(customer).length === 0) {
+            return of(false);
+        }
         return this.customerService.updateCustomer(id, customer)
             .pipe(map(res => res.affected > 0));
     }

@@ -16,7 +16,10 @@ export class CustomerEntity extends AppBaseEntity {
     @Column({ length: 10, nullable: false, unique: true })
     phone: string;
 
-    @Column({ length: 3, nullable: false, default: '+91' })
+    @Column({ length: 10, nullable: true })
+    alternate_phone: string;
+
+    @Column({ length: 4, nullable: false, default: '+91' })
     country_code: string;
 
     @Column({ length: 50, nullable: true })

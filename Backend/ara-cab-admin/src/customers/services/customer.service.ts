@@ -20,6 +20,10 @@ export class CustomerService {
         return from(this.customerRepository.find({ where: [{ is_blocked: false }] }));
     }
 
+    findAllBlockedCustomer(): Observable<CreateCustomerDto[]> {
+        return from(this.customerRepository.find({ where: [{ is_blocked: true }] }));
+    }
+
     findACustomer(id: number): Observable<CreateCustomerDto> {
         return from(this.customerRepository.findOneBy({ id, is_blocked: false }));
     }

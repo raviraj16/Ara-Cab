@@ -20,6 +20,10 @@ export class LocationService {
         return from(this.locationRepository.find({ where: [{ is_discontinued: false }] }));
     }
 
+    findAllDiscontinuedLocations(): Observable<CreateLocationDto[]> {
+        return from(this.locationRepository.find({ where: [{ is_discontinued: true }] }));
+    }
+
     findALocation(id: number): Observable<CreateLocationDto> {
         return from(this.locationRepository.findOneBy({ id, is_discontinued: false }));
     }

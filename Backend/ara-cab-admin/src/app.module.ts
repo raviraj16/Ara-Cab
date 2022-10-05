@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { LocationsModule } from './locations/locations.module';
 import { SharedModule } from './shared/shared.module';
 import { CustomersModule } from './customers/customers.module';
+import { DriversModule } from './drivers/drivers.module';
+import { VehiclesModule } from './vehicles/vehicles.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { CustomersModule } from './customers/customers.module';
     LocationsModule,
     CustomersModule,
     SharedModule,
+    DriversModule,
+    VehiclesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

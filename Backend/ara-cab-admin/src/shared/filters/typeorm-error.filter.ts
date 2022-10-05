@@ -1,14 +1,16 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus, Logger } from '@nestjs/common';
 import { EntityNotFoundError, QueryFailedError, TypeORMError } from 'typeorm';
 import { PostgresErrorCodes } from '../models/postgres-error-codes.enum';
 
 @Catch(TypeORMError)
 export class TypeOrmFilter implements ExceptionFilter {
+    private readonly logger = new Logger(TypeOrmFilter.name);
     catch(exception: TypeORMError, host: ArgumentsHost) {
         const response = host.switchToHttp().getResponse();
         let message: string = "Could not process your request";
-        let code: number = HttpStatus.INTERNAL_SERVER_ERROR;
-        let error = 'Internal Server Error';
+        let code: number = HttpStatus.BAD_GATEWAY;
+        let error = 'Bad Gateway';
+        this.logger.log(exception);
         if ((exception as any).code) {
             switch ((exception as any).code) {
                 case PostgresErrorCodes.UNDEFINED_TABLE:
@@ -24,6 +26,11 @@ export class TypeOrmFilter implements ExceptionFilter {
                     break;
                 case PostgresErrorCodes.UNIQUE_VIOLATION:
                     message = 'Duplicate entry';
+                    code = HttpStatus.BAD_REQUEST;
+                    error = 'Bad Request';
+                    break;
+                case PostgresErrorCodes.INVALID_DATETIME_FORMAT:
+                    message = 'Invalid date format';
                     code = HttpStatus.BAD_REQUEST;
                     error = 'Bad Request';
                     break;

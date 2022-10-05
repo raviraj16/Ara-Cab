@@ -17,6 +17,11 @@ export class LocationController {
         return this.locationService.findAllLocations();
     }
 
+    @Get('discontinued')
+    findAllDiscontinued(): Observable<CreateLocationDto[]> {
+        return this.locationService.findAllDiscontinuedLocations();
+    }
+
     @Get(':id')
     findOne(@Param('id') id: number): Observable<CreateLocationDto> {
         return this.locationService.findALocation(id);
