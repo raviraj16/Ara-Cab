@@ -1,5 +1,4 @@
 import { AppBaseEntity } from "src/shared/models/app-base.entity";
-import { CustomerTypes } from "src/shared/models/customer-types.enum";
 import { Check, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('drivers')

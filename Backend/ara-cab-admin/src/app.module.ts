@@ -8,10 +8,15 @@ import { SharedModule } from './shared/shared.module';
 import { CustomersModule } from './customers/customers.module';
 import { DriversModule } from './drivers/drivers.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { RateChartsModule } from './rate-charts/rate-charts.module';
 
+const ENV = process.env.NODE_ENV;
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ 
+      isGlobal: true,
+      envFilePath: `environment/.env.${ENV}`,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
@@ -27,6 +32,7 @@ import { VehiclesModule } from './vehicles/vehicles.module';
     SharedModule,
     DriversModule,
     VehiclesModule,
+    RateChartsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,7 +9,7 @@ import { TransformInterceptor } from './shared/interceptor/transform.interceptor
 async function bootstrap() {
   const httpsOptions: HttpsOptions = {
     passphrase: process.env.CERT_PASS,
-    pfx: fs.readFileSync('./aracabcert.pfx'),
+    pfx: fs.readFileSync(process.env.CERT_PATH),
   };
   const app = await NestFactory.create(AppModule, { httpsOptions });
   app.useGlobalPipes(new ValidationPipe({
