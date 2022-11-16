@@ -32,7 +32,7 @@ export class DriverService {
         return from(this.driverRepository.update(id, driver));
     }
 
-    blockDriver(id: number): Observable<UpdateResult> {
+    discontinueDriver(id: number): Observable<UpdateResult> {
         return from(this.driverRepository.update(id, { is_discontinued: true }));
     }
 }

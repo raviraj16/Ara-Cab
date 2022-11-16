@@ -9,6 +9,9 @@ import { CustomersModule } from './customers/customers.module';
 import { DriversModule } from './drivers/drivers.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { RateChartsModule } from './rate-charts/rate-charts.module';
+import { BookingsModule } from './bookings/bookings.module';
+import { JourneyStatusModule } from './journey-status/journey-status.module';
+import { PaymentsModule } from './payments/payments.module';
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -33,6 +36,9 @@ const ENV = process.env.NODE_ENV;
     DriversModule,
     VehiclesModule,
     RateChartsModule,
+    BookingsModule,
+    JourneyStatusModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

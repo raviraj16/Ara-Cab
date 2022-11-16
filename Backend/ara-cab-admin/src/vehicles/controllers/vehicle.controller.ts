@@ -41,8 +41,8 @@ export class VehicleController {
     }
 
     @Delete(':id')
-    delete(@Param('id') id: number): Observable<boolean> {
-        return this.vehicleService.blockVehicle(id)
+    discontinue(@Param('id') id: number): Observable<boolean> {
+        return this.vehicleService.discontinueVehicle(id)
             .pipe(map(res => res.affected > 0));
     }
 }

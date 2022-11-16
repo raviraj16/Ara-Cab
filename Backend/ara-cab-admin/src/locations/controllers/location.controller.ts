@@ -40,8 +40,8 @@ export class LocationController {
     }
 
     @Delete(':id')
-    delete(@Param('id') id: number): Observable<boolean> {
-        return this.locationService.softDeleteLocation(id)
+    discontinue(@Param('id') id: number): Observable<boolean> {
+        return this.locationService.discontinueLocation(id)
             .pipe(map(res => res.affected > 0));
     }
 }

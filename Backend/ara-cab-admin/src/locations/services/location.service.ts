@@ -32,7 +32,7 @@ export class LocationService {
         return from(this.locationRepository.update(id, location));
     }
 
-    softDeleteLocation(id: number): Observable<UpdateResult> {
+    discontinueLocation(id: number): Observable<UpdateResult> {
         return from(this.locationRepository.update(id, { is_discontinued: true }));
     }
 }

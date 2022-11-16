@@ -22,6 +22,7 @@ export class VehicleEntity extends AppBaseEntity {
         nullable: true
     })
     @JoinColumn({ name: "owner_id", foreignKeyConstraintName: 'fk_vehicles_drivers' })
+    @Column({ nullable: true })
     owner_id: number;
 
     @Column({ length: 15, nullable: false, unique: true })

@@ -20,6 +20,20 @@ async function bootstrap() {
   app.useGlobalFilters(new TypeOrmFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
   app.setGlobalPrefix('api');
+
   await app.listen(parseInt(process.env.SERVER_PORT));
 }
+
+/**
+ * This function forces postgres driver to convert numeric string to javascript float
+ * By default postgres javascript driver converts numeric type to string in order to
+ * prevent precision loss
+ */
+function preventPostgresNumericToStringConversion() {
+  const types = require('pg').types;
+  types.setTypeParser(1700, (val) => {
+    return parseFloat(val);
+  });
+}
+preventPostgresNumericToStringConversion();
 bootstrap();

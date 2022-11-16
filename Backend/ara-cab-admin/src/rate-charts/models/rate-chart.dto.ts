@@ -1,34 +1,44 @@
-import { IsAlphanumeric, IsBoolean, IsEmail, IsEnum, IsInt, IsMobilePhone, IsNotEmpty, IsOptional, IsPositive, IsString, MaxLength } from "class-validator";
+import { IsEnum, IsInt, IsNumber, IsOptional, IsPositive } from "class-validator";
 import { PartialType } from "@nestjs/mapped-types";
 import { BaseDto } from "src/shared/models/base.dto";
-import { VehicleTypes } from "src/shared/models/vehicle-types.enum";
+import { JourneyScopes } from "src/shared/models/journey-scopes.enum";
 
-export class CreateVehicleDto extends BaseDto {
-    @IsNotEmpty()
-    @IsString()
-    @MaxLength(30)
-    model_name: string;
+export class CreateRateChartDto extends BaseDto {
 
-    @MaxLength(50)
-    @IsString()
-    @IsOptional()
-    model_description: string;
+    @IsPositive()
+    @IsInt()
+    pick_up_location_id: number;
 
     @IsOptional()
     @IsPositive()
     @IsInt()
-    owner_id?: number;
+    drop_location_id?: number;
 
-    @MaxLength(15)
-    @IsAlphanumeric()
-    licence_plate: string;
-
-    @IsBoolean()
     @IsOptional()
-    is_commercial?: boolean;
+    @IsPositive()
+    @IsInt()
+    approx_distance_km?: number;
 
-    @IsEnum(VehicleTypes)
-    vehicle_type: VehicleTypes;
+    @IsOptional()
+    @IsPositive()
+    @IsNumber()
+    night_halt_charge_per_count?: number;
+
+    @IsPositive()
+    @IsNumber()
+    one_way_charge: number;
+
+    @IsOptional()
+    @IsPositive()
+    @IsNumber()
+    round_trip_charge?: number;
+
+    @IsPositive()
+    @IsInt()
+    vehicle_id: number;
+
+    @IsEnum(JourneyScopes)
+    journey_scope: JourneyScopes;
 }
 
-export class UpdateVehicleDto extends PartialType(CreateVehicleDto) { }
+export class UpdateRateChartDto extends PartialType(CreateRateChartDto) { }

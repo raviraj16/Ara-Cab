@@ -32,7 +32,7 @@ export class VehicleService {
         return from(this.vehicleRepository.update(id, vehicle));
     }
 
-    blockVehicle(id: number): Observable<UpdateResult> {
+    discontinueVehicle(id: number): Observable<UpdateResult> {
         return from(this.vehicleRepository.update(id, { is_discontinued: true }));
     }
 }

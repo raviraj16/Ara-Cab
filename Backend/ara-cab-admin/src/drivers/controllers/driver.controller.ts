@@ -41,8 +41,8 @@ export class DriverController {
     }
 
     @Delete(':id')
-    delete(@Param('id') id: number): Observable<boolean> {
-        return this.driverService.blockDriver(id)
+    discontinue(@Param('id') id: number): Observable<boolean> {
+        return this.driverService.discontinueDriver(id)
             .pipe(map(res => res.affected > 0));
     }
 }
